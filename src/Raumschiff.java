@@ -50,21 +50,14 @@ public class Raumschiff {
 
     }
 
-    public void shootTorpedo(int torpedoAmountToShoot, Raumschiff raumschiff) {
-
-        if (anzahlTorpedos > 0) {
-            if (torpedoAmountToShoot > anzahlTorpedos) {
-                torpedoAmountToShoot = anzahlTorpedos;
-            } else {
-                anzahlTorpedos -= torpedoAmountToShoot;
-            }
-            System.out.println(torpedoAmountToShoot + " Photonentorpedo(s) wurden eingesetzt.");
-            sweepLoadList();
-        } else {
-            System.out.println("Keine Photonentorpedos gefunden!");
+    public void shootTorpedo(Raumschiff raumschiff) {
+        if (anzahlTorpedos == 0) {
             notifyAll("-=*Click*=-");
+            return;
         }
-        
+        anzahlTorpedos -= 1;
+        notifyAll("Photonentorpedo abgeschossen");
+        hit();
     }
 
     public void shootKanone(Raumschiff raumschiff) {
@@ -125,10 +118,22 @@ public class Raumschiff {
         BROADCAST_COMMUNICATOR.add(logEntry);
     }
 
-    private void sweepLoadList() {
+    public void sweepLoadList() {
         for (int i = 0; i < ladungsverzeichnis.size(); i++) {
             if (ladungsverzeichnis.get(i).getAnzahl() == 0) ladungsverzeichnis.remove(i);
         }
+    }
+
+    public void loadTorpedos(int amountTorpedosToUse) {
+        if (anzahlTorpedos == 0) {
+            System.out.println("Keine Photonentorpedos gefunden!");
+            notifyAll("-=*Click*=-");
+            return;
+        }
+
+        if (amountTorpedosToUse > anzahlTorpedos) amountTorpedosToUse = anzahlTorpedos;
+        
+        System.out.println(amountTorpedosToUse + " Photonentorpedo(s) eingesetzt");
     }
 
     public String getName() {

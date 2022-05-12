@@ -23,9 +23,22 @@ public class Main {
         Raumschiff romulaner = new Raumschiff("IRW Khazara", "kapitaen", 50, 50, 2, 2, 100, 100, ladungRomulaner);
         Raumschiff vulkanier = new Raumschiff("Ni'Var", "oashjif", random.nextFloat(100) + 1, random.nextFloat(100) + 1, 3, 5, 100, random.nextFloat(100) + 1, ladungVulkanier);
     
-        klingonen.shootTorpedo(1, romulaner);
+        klingonen.shootTorpedo(romulaner);
+        System.out.println();
         romulaner.shootKanone(klingonen);
+        System.out.println();
         vulkanier.notifyAll("Gewalt ist nicht logisch");
-
+        System.out.println();
+        klingonen.showZustand();
+        System.out.println();
+        vulkanier.showZustand();
+        vulkanier.sendReparaturAuftrag(true, true, true, vulkanier.getAnzahlAndroiden());
+        vulkanier.loadTorpedos(vulkanier.getAnzahlTorpedos());
+        vulkanier.sweepLoadList();
+        klingonen.shootTorpedo(romulaner);
+        klingonen.shootTorpedo(romulaner);
+        vulkanier.showZustand();
+        klingonen.showZustand();
+        romulaner.showZustand();
     }
 }
