@@ -1,28 +1,31 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Raumschiff {
 
     private String name;
     private String kapitaen;
-    private int energieversorgungInProzent;
-    private int schutzschildeInProzent;
+    private float energieversorgungInProzent;
+    private float schutzschildeInProzent;
     private int anzahlTorpedos;
-    private int lebenserhaltungssystemeInProzent;
-    private int huelleInProzent;
+    private int anzahlAndroiden;
+    private float lebenserhaltungssystemeInProzent;
+    private float huelleInProzent;
     private static final ArrayList<String> BROADCAST_COMMUNICATOR = new ArrayList<>();
     private ArrayList<Ladung> ladungsverzeichnis = new ArrayList<>();
     
     public Raumschiff() {
     }
 
-    public Raumschiff(String name, String kapitaen, int energieversorgungInProzent, int schutzschildeInProzent, int anzahlTorpedos, int lebenserhaltungssystemeInProzent, 
-                      int huelleInProzent, ArrayList<Ladung> ladungsverzeichnis) {
+    public Raumschiff(String name, String kapitaen, float energieversorgungInProzent, float schutzschildeInProzent, int anzahlTorpedos, int anzahlAndroiden, float lebenserhaltungssystemeInProzent, 
+                      float huelleInProzent, ArrayList<Ladung> ladungsverzeichnis) {
                  
         this.name = name;
         this.kapitaen = kapitaen;
         this.energieversorgungInProzent = energieversorgungInProzent;
         this.schutzschildeInProzent = schutzschildeInProzent;
         this.anzahlTorpedos = anzahlTorpedos;
+        this.anzahlAndroiden = anzahlAndroiden;
         this.lebenserhaltungssystemeInProzent = lebenserhaltungssystemeInProzent;
         this.huelleInProzent = huelleInProzent;
         this.ladungsverzeichnis = ladungsverzeichnis;
@@ -101,16 +104,27 @@ public class Raumschiff {
         return BROADCAST_COMMUNICATOR;
     }
 
-    public void rohreLaden(int anzahlTorpedos) {
+    public void sendReparaturAuftrag(boolean schutzschild, boolean energieversorgung, boolean huelle, int amountAndroidenToUse) {
+        if (amountAndroidenToUse > anzahlAndroiden) amountAndroidenToUse = anzahlAndroiden;
+        boolean[] schiffskomponenten = new boolean[]{schutzschild, energieversorgung, huelle};
+        ArrayList<Boolean> temp = new ArrayList<>();
 
-    }
+        for (int i = 0; i < schiffskomponenten.length; i++) {
+            if (schiffskomponenten[i]) temp.add(schiffskomponenten[i]);
+        }
 
-    public void sendReparaturAuftrag(boolean schutzschild, boolean energieversorgung, boolean huelle) {
+        Random r = new Random();
+        int randomInt = r.nextInt(100) + 1;
         
+        float amountToRepair = randomInt * amountAndroidenToUse / temp.size();
+
+        if (schutzschild) schutzschildeInProzent += amountToRepair;
+        if (energieversorgung) energieversorgungInProzent += amountToRepair;
+        if (huelle) huelleInProzent += amountToRepair;
     }
 
     public void addLogEntry(String logEntry) {
-
+        BROADCAST_COMMUNICATOR.add(logEntry);
     }
 
     private void sweepLoadList() {
@@ -135,35 +149,35 @@ public class Raumschiff {
         this.kapitaen = kapitaen;
     }
 
-    public int getEnergieversorgungInProzent() {
+    public float getEnergieversorgungInProzent() {
         return energieversorgungInProzent;
     }
 
-    public void setEnergieversorgungInProzent(int energieversorgungInProzent) {
+    public void setEnergieversorgungInProzent(float energieversorgungInProzent) {
         this.energieversorgungInProzent = energieversorgungInProzent;
     }
 
-    public int getSchutzschildeInProzent() {
+    public float getSchutzschildeInProzent() {
         return schutzschildeInProzent;
     }
 
-    public void setSchutzschildeInProzent(int schutzschildeInProzent) {
+    public void setSchutzschildeInProzent(float schutzschildeInProzent) {
         this.schutzschildeInProzent = schutzschildeInProzent;
     }
 
-    public int getLebenserhaltungssystemeInProzent() {
+    public float getLebenserhaltungssystemeInProzent() {
         return lebenserhaltungssystemeInProzent;
     }
 
-    public void setLebenserhaltungssystemeInProzent(int lebenserhaltungssystemeInProzent) {
+    public void setLebenserhaltungssystemeInProzent(float lebenserhaltungssystemeInProzent) {
         this.lebenserhaltungssystemeInProzent = lebenserhaltungssystemeInProzent;
     }
 
-    public int getHuelleInProzent() {
+    public float getHuelleInProzent() {
         return huelleInProzent;
     }
 
-    public void setHuelleInProzent(int huelleInProzent) {
+    public void setHuelleInProzent(float huelleInProzent) {
         this.huelleInProzent = huelleInProzent;
     }
 
@@ -173,6 +187,14 @@ public class Raumschiff {
 
     public void setAnzahlTorpedos(int anzahlTorpedos) {
         this.anzahlTorpedos = anzahlTorpedos;
-    }   
+    }
+
+    public int getAnzahlAndroiden() {
+        return anzahlAndroiden;
+    }
+
+    public void setAnzahlAndroiden(int anzahlAndroiden) {
+        this.anzahlAndroiden = anzahlAndroiden;
+    }
 
 }
