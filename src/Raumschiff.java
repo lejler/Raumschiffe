@@ -10,13 +10,13 @@ public class Raumschiff {
     private int lebenserhaltungssystemeInProzent;
     private int huelleInProzent;
     private static final ArrayList<String> BROADCAST_COMMUNICATOR = new ArrayList<>();
-    private Ladung[] ladungsverzeichnis;
+    private ArrayList<Ladung> ladungsverzeichnis = new ArrayList<>();
     
     public Raumschiff() {
     }
 
     public Raumschiff(String name, String kapitaen, int energieversorgungInProzent, int schutzschildeInProzent, int anzahlTorpedos, int lebenserhaltungssystemeInProzent, 
-                      int huelleInProzent, Ladung[] ladungsverzeichnis) {
+                      int huelleInProzent, ArrayList<Ladung> ladungsverzeichnis) {
                  
         this.name = name;
         this.kapitaen = kapitaen;
@@ -32,9 +32,9 @@ public class Raumschiff {
 
         StringBuilder builder = new StringBuilder();
 
-        for (int i = 0; i < ladungsverzeichnis.length; i++) {
-            builder.append(ladungsverzeichnis[i].toString());
-            if(i != ladungsverzeichnis.length - 1) builder.append(", ");
+        for (int i = 0; i < ladungsverzeichnis.size(); i++) {
+            builder.append(ladungsverzeichnis.get(i).toString());
+            if(i != ladungsverzeichnis.size() - 1) builder.append(", ");
         }
 
         System.out.println("Name: " + name);
@@ -49,15 +49,16 @@ public class Raumschiff {
 
     public void shootTorpedo(int torpedoAmountToShoot, Raumschiff raumschiff) {
 
-        for (int i = 0; i < ladungsverzeichnis.length; i++) {
-            if (ladungsverzeichnis[i].getName().equals("Photonentorpedos")) {
-                if (torpedoAmountToShoot > ladungsverzeichnis[i].getAnzahl()) {
-                    torpedoAmountToShoot = ladungsverzeichnis[i].getAnzahl();
+        for (int i = 0; i < ladungsverzeichnis.size(); i++) {
+            if (ladungsverzeichnis.get(i).getName().equals("Photonentorpedos")) {
+                if (torpedoAmountToShoot > ladungsverzeichnis.get(i).getAnzahl()) {
+                    torpedoAmountToShoot = ladungsverzeichnis.get(i).getAnzahl();
                 } else {
-                    ladungsverzeichnis[i].setAnzahl(ladungsverzeichnis[i].getAnzahl()- torpedoAmountToShoot);
+                    ladungsverzeichnis.get(i).setAnzahl(ladungsverzeichnis.get(i).getAnzahl()- torpedoAmountToShoot);
                     anzahlTorpedos+=torpedoAmountToShoot;
                 }
                 System.out.println(torpedoAmountToShoot + " Photonentorpedo(s) wurden eingesetzt.");
+                sweepLoadList();
             } else {
                 System.out.println("Keine Photonentorpedos gefunden!");
                 notifyAll("-=*Click*=-");
@@ -112,11 +113,10 @@ public class Raumschiff {
 
     }
 
-    private boolean hasTorpedos() {
-        if(anzahlTorpedos > 0) {
-            return true;
+    private void sweepLoadList() {
+        for (int i = 0; i < ladungsverzeichnis.size(); i++) {
+            if (ladungsverzeichnis.get(i).getAnzahl() == 0) ladungsverzeichnis.remove(i);
         }
-        return false;
     }
 
     public String getName() {
