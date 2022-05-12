@@ -6,6 +6,7 @@ public class Raumschiff {
     private String kapitaen;
     private int energieversorgungInProzent;
     private int schutzschildeInProzent;
+    private int anzahlTorpedos;
     private int lebenserhaltungssystemeInProzent;
     private int huelleInProzent;
     private static final ArrayList<String> BROADCAST_COMMUNICATOR = new ArrayList<>();
@@ -14,13 +15,14 @@ public class Raumschiff {
     public Raumschiff() {
     }
 
-    public Raumschiff(String name, String kapitaen, int energieversorgungInProzent, int schutzschildeInProzent, int lebenserhaltungssystemeInProzent, 
+    public Raumschiff(String name, String kapitaen, int energieversorgungInProzent, int schutzschildeInProzent, int anzahlTorpedos, int lebenserhaltungssystemeInProzent, 
                       int huelleInProzent, Ladung[] ladungsverzeichnis) {
                  
         this.name = name;
         this.kapitaen = kapitaen;
         this.energieversorgungInProzent = energieversorgungInProzent;
         this.schutzschildeInProzent = schutzschildeInProzent;
+        this.anzahlTorpedos = anzahlTorpedos;
         this.lebenserhaltungssystemeInProzent = lebenserhaltungssystemeInProzent;
         this.huelleInProzent = huelleInProzent;
         this.ladungsverzeichnis = ladungsverzeichnis;
@@ -31,8 +33,8 @@ public class Raumschiff {
         StringBuilder builder = new StringBuilder();
 
         for (int i = 0; i < ladungsverzeichnis.length; i++) {
-            builder.append(ladungsverzeichnis[i].getName() + "(" + ladungsverzeichnis[i].getAnzahl() + ")");
-            if(i != ladungsverzeichnis.length - 1) {builder.append(", ");}
+            builder.append(ladungsverzeichnis[i].toString());
+            if(i != ladungsverzeichnis.length - 1) builder.append(", ");
         }
 
         System.out.println("Name: " + name);
@@ -46,7 +48,25 @@ public class Raumschiff {
     }
 
     public void shootTorpedo(int torpedoAmountToShoot, Raumschiff raumschiff) {
-        if (anzahlTorpedos == 0) {
+
+        for (int i = 0; i < ladungsverzeichnis.length; i++) {
+            if (ladungsverzeichnis[i].getName().equals("Photonentorpedos")) {
+                if (torpedoAmountToShoot > ladungsverzeichnis[i].getAnzahl()) {
+                    torpedoAmountToShoot = ladungsverzeichnis[i].getAnzahl();
+                } else {
+                    ladungsverzeichnis[i].setAnzahl(ladungsverzeichnis[i].getAnzahl()- torpedoAmountToShoot);
+                    anzahlTorpedos+=torpedoAmountToShoot;
+                }
+                System.out.println(torpedoAmountToShoot + " Photonentorpedo(s) wurden eingesetzt.");
+                
+            } else {
+                System.out.println("Keine Photonentorpedos gefunden!");
+                notifyAll("-=*Click*=-");
+            }
+        }
+
+
+        if (!hasTorpedos()) {
             System.out.println("Keine Photonentorpedos gefunden!");
             notifyAll("-=*Click*=-");
             return;
@@ -74,8 +94,7 @@ public class Raumschiff {
         if (schutzschildeInProzent < 0) {
             huelleInProzent -= 50;
             energieversorgungInProzent -= 50;
-            // ich weiß, dass die Aufgabe vorgibt, bei 0% diese Nachricht ausgeben zu lassen, finde es so aber sinnvoller
-            if (huelleInProzent < 0) {
+            if (huelleInProzent <= 0) {
                 notifyAll("Lebenserhaltungssysteme wurden zerstört!");
             }
         }
@@ -108,6 +127,9 @@ public class Raumschiff {
     }
 
     private boolean hasTorpedos() {
+        if(anzahlTorpedos > 0) {
+            return true;
+        }
         return false;
     }
 
@@ -158,5 +180,13 @@ public class Raumschiff {
     public void setHuelleInProzent(int huelleInProzent) {
         this.huelleInProzent = huelleInProzent;
     }
+
+    public int getAnzahlTorpedos() {
+        return anzahlTorpedos;
+    }
+
+    public void setAnzahlTorpedos(int anzahlTorpedos) {
+        this.anzahlTorpedos = anzahlTorpedos;
+    }   
 
 }

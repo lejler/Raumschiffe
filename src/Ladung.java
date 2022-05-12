@@ -27,4 +27,9 @@ public class Ladung {
         this.anzahl = anzahl;
     }
 
+    @Override
+    public String toString() {
+        return name + " (" + anzahl + ")";
+    }
+
 }
