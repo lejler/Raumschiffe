@@ -94,7 +94,7 @@ public class Raumschiff {
     }
 
     public void addLadung(Ladung ladung) {
-        //TODO
+        ladungsverzeichnis.add(ladung);
     }
 
     public ArrayList<String> showLogbuchEintraege(ArrayList<String> broadcastCommunicator) {
