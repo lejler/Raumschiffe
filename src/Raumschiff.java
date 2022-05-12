@@ -58,25 +58,11 @@ public class Raumschiff {
                     anzahlTorpedos+=torpedoAmountToShoot;
                 }
                 System.out.println(torpedoAmountToShoot + " Photonentorpedo(s) wurden eingesetzt.");
-                
             } else {
                 System.out.println("Keine Photonentorpedos gefunden!");
                 notifyAll("-=*Click*=-");
             }
         }
-
-
-        if (!hasTorpedos()) {
-            System.out.println("Keine Photonentorpedos gefunden!");
-            notifyAll("-=*Click*=-");
-            return;
-        }
-        if (torpedoAmountToShoot > anzahlTorpedos) {
-            torpedoAmountToShoot = anzahlTorpedos;
-        }
-        anzahlTorpedos-=1;
-        notifyAll("Photonentorpedo abgeschossen");
-        hit();
     }
 
     public void shootKanone(Raumschiff raumschiff) {
