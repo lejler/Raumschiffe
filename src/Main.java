@@ -1,16 +1,31 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Ladung l = new Ladung("Stuff", 2);
-        Ladung l2 = new Ladung("Kram", 7);
-        Ladung l3 = new Ladung("Kanonen", 5);
-        ArrayList<Ladung> ladung = new ArrayList<>();
-        ladung.add(l);
-        ladung.add(l2);
-        ladung.add(l3);
-        //Ladung[] ladung = new Ladung[]{l, l2, l3};
-        Raumschiff r = new Raumschiff("Name", "kapitaen", 100, 100, 2, 4, 100, 100, ladung);
-        r.showZustand();
+
+        Random random = new Random();
+
+        ArrayList<Ladung> ladungKlingonen = new ArrayList<>();
+        ArrayList<Ladung> ladungRomulaner = new ArrayList<>();
+        ArrayList<Ladung> ladungVulkanier = new ArrayList<>();
+
+        ladungKlingonen.add(new Ladung("Ferengi Schneckensaft", 200));
+        ladungKlingonen.add(new Ladung("Bat'leth Schwert", 200));
+        
+        ladungRomulaner.add(new Ladung("Borg-Schrott", 5));
+        ladungRomulaner.add(new Ladung("Rote Materie", 2));
+        ladungRomulaner.add(new Ladung("Plasma-Waffe", 50));
+
+        ladungVulkanier.add(new Ladung("Forschungssonde", 35));
+
+        Raumschiff klingonen = new Raumschiff("IKS Hegh'ta", "", 100, 50, 0, 2, 100, 100, ladungKlingonen);
+        Raumschiff romulaner = new Raumschiff("IRW Khazara", "kapitaen", 50, 50, 2, 2, 100, 100, ladungRomulaner);
+        Raumschiff vulkanier = new Raumschiff("Ni'Var", "oashjif", random.nextFloat(100) + 1, random.nextFloat(100) + 1, 3, 5, 100, random.nextFloat(100) + 1, ladungVulkanier);
+    
+        klingonen.shootTorpedo(1, romulaner);
+        romulaner.shootKanone(klingonen);
+        vulkanier.notifyAll("Gewalt ist nicht logisch");
+
     }
 }

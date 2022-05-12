@@ -46,27 +46,25 @@ public class Raumschiff {
         System.out.println("Schutzschilde: " + schutzschildeInProzent + "%");
         System.out.println("Lebenserhaltungssysteme: " + lebenserhaltungssystemeInProzent + "%");
         System.out.println("Hülle: " + huelleInProzent + "%");
-        System.out.print("Ladung: " + builder);
+        System.out.print("Ladung: " + builder + "\n\n");
 
     }
 
     public void shootTorpedo(int torpedoAmountToShoot, Raumschiff raumschiff) {
 
-        for (int i = 0; i < ladungsverzeichnis.size(); i++) {
-            if (ladungsverzeichnis.get(i).getName().equals("Photonentorpedos")) {
-                if (torpedoAmountToShoot > ladungsverzeichnis.get(i).getAnzahl()) {
-                    torpedoAmountToShoot = ladungsverzeichnis.get(i).getAnzahl();
-                } else {
-                    ladungsverzeichnis.get(i).setAnzahl(ladungsverzeichnis.get(i).getAnzahl()- torpedoAmountToShoot);
-                    anzahlTorpedos+=torpedoAmountToShoot;
-                }
-                System.out.println(torpedoAmountToShoot + " Photonentorpedo(s) wurden eingesetzt.");
-                sweepLoadList();
+        if (anzahlTorpedos > 0) {
+            if (torpedoAmountToShoot > anzahlTorpedos) {
+                torpedoAmountToShoot = anzahlTorpedos;
             } else {
-                System.out.println("Keine Photonentorpedos gefunden!");
-                notifyAll("-=*Click*=-");
+                anzahlTorpedos -= torpedoAmountToShoot;
             }
+            System.out.println(torpedoAmountToShoot + " Photonentorpedo(s) wurden eingesetzt.");
+            sweepLoadList();
+        } else {
+            System.out.println("Keine Photonentorpedos gefunden!");
+            notifyAll("-=*Click*=-");
         }
+        
     }
 
     public void shootKanone(Raumschiff raumschiff) {
