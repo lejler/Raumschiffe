@@ -1,63 +1,30 @@
 public class Ladung {
 
-    private int anzahlTricoder;
-    private int anzahlForschungssonden;
-    private int anzahlKlingonen;
-    private int anzahlRomulaner;
-    private int anzahlVulkanier;
+    private String name;
+    private int anzahl;
 
-    public Ladung() {
-
+    public Ladung() {  
     }
 
-    public Ladung(int anzahlTricoder, int anzahlForschungssonden, int anzahlKlingonen, int anzahlRomulaner, int anzahlVulkanier){
-        this.anzahlTricoder = anzahlTricoder;
-        this.anzahlForschungssonden = anzahlForschungssonden;
-        this.anzahlKlingonen = anzahlKlingonen;
-        this.anzahlRomulaner = anzahlRomulaner;
-        this.anzahlVulkanier = anzahlVulkanier;
+    public Ladung(String name, int anzahl) {
+        this.name = name;
+        this.anzahl = anzahl;
     }
 
-    public int getAnzahlTricoder() {
-        return anzahlTricoder;
+    public String getName() {
+        return name;
     }
 
-    public void setAnzahlTricoder(int anzahlTricoder) {
-        this.anzahlTricoder = anzahlTricoder;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getAnzahlForschungssonden() {
-        return anzahlForschungssonden;
+    public int getAnzahl() {
+        return anzahl;
     }
 
-    public void setAnzahlForschungssonden(int anzahlForschungssonden) {
-        this.anzahlForschungssonden = anzahlForschungssonden;
+    public void setAnzahl(int anzahl) {
+        this.anzahl = anzahl;
     }
-
-    public int getAnzahlKlingonen() {
-        return anzahlKlingonen;
-    }
-
-    public void setAnzahlKlingonen(int anzahlKlingonen) {
-        this.anzahlKlingonen = anzahlKlingonen;
-    }
-
-    public int getAnzahlRomulaner() {
-        return anzahlRomulaner;
-    }
-
-    public void setAnzahlRomulaner(int anzahlRomulaner) {
-        this.anzahlRomulaner = anzahlRomulaner;
-    }
-
-    public int getAnzahlVulkanier() {
-        return anzahlVulkanier;
-    }
-
-    public void setAnzahlVulkanier(int anzahlVulkanier) {
-        this.anzahlVulkanier = anzahlVulkanier;
-    }
-
-    
 
 }

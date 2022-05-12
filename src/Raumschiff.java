@@ -8,16 +8,14 @@ public class Raumschiff {
     private int schutzschildeInProzent;
     private int lebenserhaltungssystemeInProzent;
     private int huelleInProzent;
-    private int anzahlTorpedos;
-    private int anzahlAndroiden;
     private static final ArrayList<String> BROADCAST_COMMUNICATOR = new ArrayList<>();
-    private Ladung ladungsverzeichnis;
+    private Ladung[] ladungsverzeichnis;
     
     public Raumschiff() {
     }
 
     public Raumschiff(String name, String kapitaen, int energieversorgungInProzent, int schutzschildeInProzent, int lebenserhaltungssystemeInProzent, 
-                      int huelleInProzent, int anzahlTorpedos, int anzahlAndroiden, Ladung ladungsverzeichnis) {
+                      int huelleInProzent, Ladung[] ladungsverzeichnis) {
                  
         this.name = name;
         this.kapitaen = kapitaen;
@@ -25,12 +23,17 @@ public class Raumschiff {
         this.schutzschildeInProzent = schutzschildeInProzent;
         this.lebenserhaltungssystemeInProzent = lebenserhaltungssystemeInProzent;
         this.huelleInProzent = huelleInProzent;
-        this.anzahlTorpedos = anzahlTorpedos;
-        this.anzahlAndroiden = anzahlAndroiden;
         this.ladungsverzeichnis = ladungsverzeichnis;
     }
 
     public void showZustand() {
+
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < ladungsverzeichnis.length; i++) {
+            builder.append(ladungsverzeichnis[i].getName() + "(" + ladungsverzeichnis[i].getAnzahl() + ")");
+            if(i != ladungsverzeichnis.length - 1) {builder.append(", ");}
+        }
 
         System.out.println("Name: " + name);
         System.out.println("Kapitän: " + kapitaen);
@@ -38,20 +41,18 @@ public class Raumschiff {
         System.out.println("Schutzschilde: " + schutzschildeInProzent + "%");
         System.out.println("Lebenserhaltungssysteme: " + lebenserhaltungssystemeInProzent + "%");
         System.out.println("Hülle: " + huelleInProzent + "%");
-        System.out.println("Torpedos: " + anzahlTorpedos);
-        System.out.println("Androiden: " + anzahlAndroiden);
-        System.out.print("Ladung: ");
-        System.out.print("Tricoder: " + ladungsverzeichnis.getAnzahlTricoder() + ", ");
-        System.out.print("Forschungssonden: " + ladungsverzeichnis.getAnzahlForschungssonden() + ", ");
-        System.out.print("Klingonen: " + ladungsverzeichnis.getAnzahlKlingonen() + ", ");
-        System.out.print("Romulaner: " + ladungsverzeichnis.getAnzahlRomulaner() + ", ");
-        System.out.print("Valkanier: " + ladungsverzeichnis.getAnzahlVulkanier());
+        System.out.print("Ladung: " + builder);
+
     }
 
-    public void shootTorpedo(Raumschiff raumschiff) {
+    public void shootTorpedo(int torpedoAmountToShoot, Raumschiff raumschiff) {
         if (anzahlTorpedos == 0) {
-            System.out.println("-=*Click*=-");
+            System.out.println("Keine Photonentorpedos gefunden!");
+            notifyAll("-=*Click*=-");
             return;
+        }
+        if (torpedoAmountToShoot > anzahlTorpedos) {
+            torpedoAmountToShoot = anzahlTorpedos;
         }
         anzahlTorpedos-=1;
         notifyAll("Photonentorpedo abgeschossen");
@@ -156,30 +157,6 @@ public class Raumschiff {
 
     public void setHuelleInProzent(int huelleInProzent) {
         this.huelleInProzent = huelleInProzent;
-    }
-
-    public int getAnzahlTorpedos() {
-        return anzahlTorpedos;
-    }
-
-    public void setAnzahlTorpedos(int anzahlTorpedos) {
-        this.anzahlTorpedos = anzahlTorpedos;
-    }
-
-    public int getAnzahlAndroiden() {
-        return anzahlAndroiden;
-    }
-
-    public void setAnzahlAndroiden(int anzahlAndroiden) {
-        this.anzahlAndroiden = anzahlAndroiden;
-    }
-
-    public Ladung getLadungsverzeichnis() {
-        return ladungsverzeichnis;
-    }
-
-    public void setLadungsverzeichnis(Ladung ladungsverzeichnis) {
-        this.ladungsverzeichnis = ladungsverzeichnis;
     }
 
 }
