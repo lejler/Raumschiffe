@@ -40,5 +40,6 @@ public class Main {
         vulkanier.showZustand();
         klingonen.showZustand();
         romulaner.showZustand();
+        Raumschiff.showLogbuchEintraege();
     }
 }

@@ -83,7 +83,6 @@ public class Raumschiff {
     }
 
     public void notifyAll(String message) {
-        System.out.println(message);
         BROADCAST_COMMUNICATOR.add(message);
     }
 
@@ -91,7 +90,10 @@ public class Raumschiff {
         ladungsverzeichnis.add(ladung);
     }
 
-    public ArrayList<String> showLogbuchEintraege(ArrayList<String> broadcastCommunicator) {
+    public static ArrayList<String> showLogbuchEintraege() {
+        for (int i = 0; i < BROADCAST_COMMUNICATOR.size(); i++) {
+            System.out.println(BROADCAST_COMMUNICATOR.get(i));
+        }
         return BROADCAST_COMMUNICATOR;
     }
 
