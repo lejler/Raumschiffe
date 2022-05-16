@@ -127,15 +127,21 @@ public class Raumschiff {
     }
 
     public void loadTorpedos(int amountTorpedosToUse) {
-        if (anzahlTorpedos == 0) {
-            System.out.println("Keine Photonentorpedos gefunden!");
-            notifyAll("-=*Click*=-");
-            return;
+        for (int i = 0; i < ladungsverzeichnis.size(); i++) {
+            if (ladungsverzeichnis.get(i).equals("Photonentorpedos")) {
+                if (amountTorpedosToUse > ladungsverzeichnis.get(i).getAnzahl()) {
+                    amountTorpedosToUse = ladungsverzeichnis.get(i).getAnzahl();
+                } else {
+                    ladungsverzeichnis.get(i).setAnzahl(ladungsverzeichnis.get(i).getAnzahl() - amountTorpedosToUse);
+                }
+                anzahlTorpedos = amountTorpedosToUse;
+                System.out.println(amountTorpedosToUse + " Photonentorpedo(s) eingesetzt");
+            } else {
+                System.out.println("Keine Photonentorpedos gefunden!");
+                notifyAll("-=*Click*=-");
+                return;
+            }
         }
-
-        if (amountTorpedosToUse > anzahlTorpedos) amountTorpedosToUse = anzahlTorpedos;
-        
-        System.out.println(amountTorpedosToUse + " Photonentorpedo(s) eingesetzt");
     }
 
     public String getName() {
