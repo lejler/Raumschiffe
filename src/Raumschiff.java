@@ -125,10 +125,10 @@ public class Raumschiff {
             if (ladungsverzeichnis.get(i).getAnzahl() == 0) ladungsverzeichnis.remove(i);
         }
     }
-
+    //TODO
     public void loadTorpedos(int amountTorpedosToUse) {
         for (int i = 0; i < ladungsverzeichnis.size(); i++) {
-            if (ladungsverzeichnis.get(i).equals("Photonentorpedos")) {
+            if (ladungsverzeichnis.get(i).equals("Photonentorpedos") || anzahlTorpedos > 0) {
                 if (amountTorpedosToUse > ladungsverzeichnis.get(i).getAnzahl()) {
                     amountTorpedosToUse = ladungsverzeichnis.get(i).getAnzahl();
                 } else {
